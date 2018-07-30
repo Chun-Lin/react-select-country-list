@@ -1,4 +1,6 @@
-# country-list
+# react-select-country-list
+
+This package take [country-list](https://github.com/fannarsh/country-list) as reference, and make it more friendly to react-select
 
 Maps ISO 3166-1-alpha-2 codes to English country names and match react-select options props.
 
@@ -8,19 +10,47 @@ Uses data from http://data.okfn.org/data/country-list
 
 ## Example
 
-``` js
-var countries = require('country-list')();
+```js
+import React, { Component } from 'react';
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
 
-console.log(countries.getValue('IS')); // Iceland
-console.log(countries.getLabel('Iceland')); // IS
+class CountrySelector extends Component {
+  constructor(props) {
+    super(props)
+
+    this.options = countryList().getData()
+
+    this.state = {
+      options: this.options,
+      value: null,
+    }
+  }
+
+  changeHandler = value => {
+    this.setState({ value })
+  }
+
+  render() {
+    return (
+      <Select
+        options={this.state.options}
+        value={this.state.value}
+        onChange={this.changeHandler}
+      />
+    )
+  }
+}
 ```
+
+
 
 ## Methods
 
 Usage:
 
 ``` js
-var countries = require('country-list')();
+import countryList from 'react-select-country-list';
 ```
 All input is case-insensitive.
 
@@ -56,40 +86,6 @@ Returns a key-value object of all countries using the code as key.
 
 Returns an array of all country information, in the same format as it gets imported.
 
-### react-select
-
-```js
-import React, { Component } from 'react';
-import Select from 'react-select'
-import countryList from 'react-select-country-list'
-
-class CountrySelector extends Component {
-  constructor(props) {
-    super(props)
-
-    this.options = countryList().getData()
-
-    this.state = {
-      options: this.options,
-      value: null,
-    }
-  }
-
-  changeHandler = value => {
-    this.setState({ value })
-  }
-
-  render() {
-    return (
-      <Select
-        options={this.state.options}
-        value={this.state.value}
-        onChange={this.changeHandler}
-      />
-    )
-  }
-}
-```
 
 
 ### Use with
