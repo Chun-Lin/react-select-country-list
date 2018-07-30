@@ -59,6 +59,10 @@ Returns an array of all country information, in the same format as it gets impor
 ### react-select
 
 ```js
+import React, { Component } from 'react';
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
+
 class CountrySelector extends Component {
   constructor(props) {
     super(props)
