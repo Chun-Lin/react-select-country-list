@@ -1,0 +1,37 @@
+{
+  "name": "react-select-country-list",
+  "version": "1.0.1",
+  "description": "Maps ISO 3166-1-alpha-2 codes to English country names and match react-select options props",
+  "main": "country-list.js",
+  "files": [
+    "data.json"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "csv-parser": "^1.11.0",
+    "standard": "^8.4.0",
+    "tap": "^7.1.2"
+  },
+  "scripts": {
+    "pretest": "standard",
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chun-Lin/react-select-country-list.git"
+  },
+  "keywords": [
+    "country",
+    "countries",
+    "react-select"
+  ],
+  "author": "ChunLin Wu <wulin40063@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/Chun-Lin/react-select-country-list",
+  "bugs": {
+    "url": "https://github.com/Chun-Lin/react-select-country-list/issues"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
