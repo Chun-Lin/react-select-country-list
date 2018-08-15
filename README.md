@@ -54,33 +54,33 @@ import countryList from 'react-select-country-list';
 ```
 All input is case-insensitive.
 
-### getValue(code)
-
-Expects a two-digit country code.
-Returns the name for that country.
-If not found, it returns `undefined`.
-
-### getLabel(name)
+### getValue(label)
 
 Expects the English country name.
 Returns the code for that country.
 If not found, it returns `undefined`.
 
+### getLabel(code)
+
+Expects a two-digit country code.
+Returns the name for that country.
+If not found, it returns `undefined`.
+
 ### getValues()
-
-Returns an array of all country names.
-
-### getLabels()
 
 Returns an array of all country codes.
 
+### getLabels()
+
+Returns an array of all country names.
+
 ### getValueList()
 
-Returns a key-value object of all countries using the name as key.
+Returns a key-value object of all countries using the code as key.
 
 ### getLabelList()
 
-Returns a key-value object of all countries using the code as key.
+Returns a key-value object of all countries using the name as key.
 
 ### getData()
 
