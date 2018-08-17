@@ -13,7 +13,11 @@ Uses data from http://data.okfn.org/data/country-list
 ## Install
 
 ``` cli
-npm install react-select-country-list
+npm install react-select-country-list --save
+```
+or
+``` cli
+yarn add react-select-country-list
 ```
 
 ## Example
