@@ -17,21 +17,21 @@ function CountryList () {
   if (!(this instanceof CountryList)) return new CountryList()
 };
 
-CountryList.prototype.getvalue = function getValue (label) {
+CountryList.prototype.getValue = function getValue (label) {
   return labelMap[label.toLowerCase()]
 }
 
-CountryList.prototype.getlabel = function getLabel (value) {
+CountryList.prototype.getLabel = function getLabel (value) {
   return valueMap[value.toLowerCase()]
 }
 
-CountryList.prototype.getlabels = function getLabels () {
+CountryList.prototype.getLabels = function getLabels () {
   return data.map(function (country) {
     return country.label
   })
 }
 
-CountryList.prototype.getvalues = function getValues () {
+CountryList.prototype.getValues = function getValues () {
   return data.map(function (country) {
     return country.value
   })
