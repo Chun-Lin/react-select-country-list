@@ -8,6 +8,14 @@ Uses data from http://data.okfn.org/data/country-list
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+
+
+## Install
+
+``` cli
+npm install react-select-country-list
+```
+
 ## Example
 
 ```js
@@ -44,14 +52,8 @@ class CountrySelector extends Component {
 ```
 
 
-
 ## Methods
 
-Usage:
-
-``` js
-import countryList from 'react-select-country-list';
-```
 All input is case-insensitive.
 
 ### getValue(label)
@@ -85,16 +87,6 @@ Returns a key-value object of all countries using the name as key.
 ### getData()
 
 Returns an array of all country information, in the same format as it gets imported.
-
-
-
-### Use with
-
-## Install
-
-``` cli
-npm install react-select-country-list
-```
 
 ## License
 
