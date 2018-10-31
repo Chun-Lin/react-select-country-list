@@ -1,5 +1,9 @@
 [
   {
+    "value": "",
+    "label": "Select a Country"
+  },
+  {
     "value": "AF",
     "label": "Afghanistan"
   },
@@ -965,7 +969,7 @@
   },
   {
     "value": "VN",
-    "label": "Viet Nam"
+    "label": "Vietnam"
   },
   {
     "value": "VG",
