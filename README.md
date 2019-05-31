@@ -6,9 +6,6 @@ Maps ISO 3166-1-alpha-2 codes to English country names and match react-select op
 
 Uses data from http://data.okfn.org/data/country-list
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-
 
 ## Install
 
