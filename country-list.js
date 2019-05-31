@@ -1,50 +1,46 @@
-'use strict'
+class CountryList {
+  constructor() {
+    this.data = require('./data.json')
+    this.labelMap = {}
+    this.valueMap = {}
 
-var data = require('./data.json')
+    this.data.forEach(country => {
+      this.labelMap[country.label.toLowerCase()] = country.value
+      this.valueMap[country.value.toLowerCase()] = country.label
+    })
+  }
 
-/**
- * Precompute label and value lookups.
- */
-var labelMap = {}
-var valueMap = {}
-data.forEach(function (country) {
-  labelMap[country.label.toLowerCase()] = country.value
-  valueMap[country.value.toLowerCase()] = country.label
-})
+  getValue(label) {
+    return this.labelMap[label.toLowerCase()]
+  }
 
-module.exports = CountryList
-function CountryList () {
+  getLabel(value) {
+    return this.valueMap[value.toLowerCase()]
+  }
+
+  getLabels() {
+    return this.data.map(country => country.label)
+  }
+
+  getValues() {
+    return this.data.map(country => country.value)
+  }
+
+  getLabelList() {
+    return this.labelMap
+  }
+
+  getValueList() {
+    return this.valueMap
+  }
+
+  getData() {
+    return this.data
+  }
+}
+
+const countryList = () => {
   if (!(this instanceof CountryList)) return new CountryList()
-};
-
-CountryList.prototype.getValue = function getValue (label) {
-  return labelMap[label.toLowerCase()]
 }
 
-CountryList.prototype.getLabel = function getLabel (value) {
-  return valueMap[value.toLowerCase()]
-}
-
-CountryList.prototype.getLabels = function getLabels () {
-  return data.map(function (country) {
-    return country.label
-  })
-}
-
-CountryList.prototype.getValues = function getValues () {
-  return data.map(function (country) {
-    return country.value
-  })
-}
-
-CountryList.prototype.getValueList = function () {
-  return valueMap
-}
-
-CountryList.prototype.getLabelList = function () {
-  return labelMap
-}
-
-CountryList.prototype.getData = function getData () {
-  return data
-}
+module.exports = countryList

@@ -9,11 +9,9 @@
   "dependencies": {},
   "devDependencies": {
     "csv-parser": "^1.11.0",
-    "standard": "^8.4.0",
     "tap": "^7.1.2"
   },
   "scripts": {
-    "pretest": "standard",
     "test": "tap test/*.js"
   },
   "repository": {
