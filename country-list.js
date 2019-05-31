@@ -48,6 +48,17 @@ class CountryList {
 
     return this
   }
+
+  setEmpty(label) {
+    this.data.unshift({
+      value: '',
+      label: label,
+    })
+    this.valueMap[''] = label
+    this.labelMap[label] = ''
+
+    return this
+  }
 }
 
 const countryList = () => {

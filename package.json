@@ -6,7 +6,9 @@
   "files": [
     "data.json"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
   "devDependencies": {
     "csv-parser": "^1.11.0",
     "tap": "^7.1.2"
