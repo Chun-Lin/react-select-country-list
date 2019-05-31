@@ -1,8 +1,8 @@
 'use strict'
 
-var test = require('tap').test
-var countries = require('../')()
-var data = require('../data.json')
+const test = require('tap').test
+const countries = require('../')()
+const data = require('../data.json')
 
 test('get value from country name', function(t) {
   t.equal(

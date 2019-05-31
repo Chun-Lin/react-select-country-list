@@ -1,8 +1,8 @@
 'use strict'
 
-var test = require('tap').test
-var countries = require('../')()
-var data = require('../data.json')
+const test = require('tap').test
+const countries = require('../')()
+const data = require('../data.json')
 
 test('get all country names', function (t) {
   t.equal(countries.getLabels().length, data.length, 'country names should be as many as countries')

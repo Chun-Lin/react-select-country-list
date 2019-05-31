@@ -1,7 +1,7 @@
 'use strict'
 
-var test = require('tap').test
-var countries = require('../')()
+const test = require('tap').test
+const countries = require('../')()
 
 test('get code from country name', function (t) {
   t.equal(countries.getValue('Iceland'), 'IS', 'name "Iceland" should return IS')
