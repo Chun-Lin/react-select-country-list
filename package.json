@@ -1,6 +1,6 @@
 {
   "name": "react-select-country-list",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "Maps ISO 3166-1-alpha-2 codes to English country names and match react-select options props",
   "main": "country-list.js",
   "files": [
@@ -19,7 +19,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chun-Lin/react-select-country-list.git"
-  }, 
+  },
   "keywords": [
     "country",
     "countries",
