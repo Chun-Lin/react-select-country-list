@@ -19,10 +19,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chun-Lin/react-select-country-list.git"
-  },
+  }, 
   "keywords": [
     "country",
     "countries",
+    "country-list",
     "react-select"
   ],
   "author": "ChunLin Wu <wulin40063@gmail.com>",
