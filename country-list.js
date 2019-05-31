@@ -37,6 +37,17 @@ class CountryList {
   getData() {
     return this.data
   }
+
+  setLabel(value, label) {
+    this.data.forEach(country => {
+      if (country.value === value) {
+        country.label = label
+        this.valueMap[country.value.toLowerCase()] = country.label
+      }
+    })
+
+    return this
+  }
 }
 
 const countryList = () => {
