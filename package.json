@@ -1,16 +1,15 @@
 {
   "name": "react-select-country-list",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Maps ISO 3166-1-alpha-2 codes to English country names and match react-select options props",
   "main": "country-list.js",
   "files": [
     "data.json"
   ],
-  "dependencies": {
-    "lodash": "^4.17.11"
-  },
+  "dependencies": {},
   "devDependencies": {
     "csv-parser": "^1.11.0",
+    "lodash.isempty": "^4.4.0",
     "tap": "^7.1.2"
   },
   "scripts": {

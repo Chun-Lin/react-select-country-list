@@ -3,7 +3,7 @@
 const test = require('tap').test
 const countries = require('../')()
 const data = require('../data.json')
-const _ = require('lodash')
+const isEmpty = require('lodash.isempty')
 
 test('get value from country name', function(t) {
   t.equal(
@@ -17,7 +17,7 @@ test('get value from country name', function(t) {
     'value "" should return "Select a Country"',
   )
   t.equal(
-    _.isEmpty(
+    isEmpty(
       countries.setEmpty('Select a Country').getValue('Select a Country'),
     ),
     true,
