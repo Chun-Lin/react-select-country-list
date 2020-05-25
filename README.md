@@ -103,6 +103,11 @@ countries.setLabel('VN', 'Vietnam').getLabel('VN') // 'Vietnam'
 
 You may want an empty value option in the list, so here's the helper function for you. Again, it can be chained with another methods above.
 
+### native()
+
+You may want to display native name of countries, this is the method for you.
+The data source of native names can be found [here](https://annexare.github.io/Countries/)
+
 #### Usage
 ```js
 countries.setEmpty('Select a Country').getLabel('') // 'Select a Country'
@@ -112,6 +117,8 @@ We can even chain `setLabel` and `setEmpty` together to have list with an empty 
 ```js
 countries.setLabel('VN', 'Vietnam').setEmpty('Select a Country').getLabel('VN') // 'Vietnam'
 ```
+
+
 
 
 ## License

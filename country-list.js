@@ -59,6 +59,16 @@ class CountryList {
 
     return this
   }
+
+  native() {
+    this.nativeData = require('./data-native.json')
+    this.nativeData.forEach(country => {
+      this.labelMap[country.label.toLowerCase()] = country.value
+      this.valueMap[country.value.toLowerCase()] = country.label
+    })
+
+    return this
+  }
 }
 
 const countryList = () => {
