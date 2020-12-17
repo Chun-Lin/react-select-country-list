@@ -50,6 +50,8 @@ class CountrySelector extends Component {
     )
   }
 }
+
+export default CountrySelector;
 ```
 
 
