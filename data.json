@@ -148,6 +148,10 @@
     "label": "Burundi"
   },
   {
+    "value": "CV",
+    "label": "Cabo Verde"
+  },
+  {
     "value": "KH",
     "label": "Cambodia"
   },
@@ -158,10 +162,6 @@
   {
     "value": "CA",
     "label": "Canada"
-  },
-  {
-    "value": "CV",
-    "label": "Cape Verde"
   },
   {
     "value": "KY",
@@ -205,7 +205,7 @@
   },
   {
     "value": "CD",
-    "label": "Congo, the Democratic Republic of the"
+    "label": "Congo, Democratic Republic of the"
   },
   {
     "value": "CK",
@@ -214,10 +214,6 @@
   {
     "value": "CR",
     "label": "Costa Rica"
-  },
-  {
-    "value": "CI",
-    "label": "Côte d'Ivoire"
   },
   {
     "value": "HR",
@@ -237,7 +233,11 @@
   },
   {
     "value": "CZ",
-    "label": "Czech Republic"
+    "label": "Czechia"
+  },
+  {
+    "value": "CI",
+    "label": "Côte d'Ivoire"
   },
   {
     "value": "DK",
@@ -278,6 +278,10 @@
   {
     "value": "EE",
     "label": "Estonia"
+  },
+  {
+    "value": "SZ",
+    "label": "Eswatini"
   },
   {
     "value": "ET",
@@ -389,7 +393,7 @@
   },
   {
     "value": "VA",
-    "label": "Holy See (Vatican City State)"
+    "label": "Holy See"
   },
   {
     "value": "HN",
@@ -524,10 +528,6 @@
     "label": "Macao"
   },
   {
-    "value": "MK",
-    "label": "Macedonia, the Former Yugoslav Republic of"
-  },
-  {
     "value": "MG",
     "label": "Madagascar"
   },
@@ -656,6 +656,10 @@
     "label": "Norfolk Island"
   },
   {
+    "value": "MK",
+    "label": "North Macedonia"
+  },
+  {
     "value": "MP",
     "label": "Northern Mariana Islands"
   },
@@ -720,10 +724,6 @@
     "label": "Qatar"
   },
   {
-    "value": "RE",
-    "label": "Réunion"
-  },
-  {
     "value": "RO",
     "label": "Romania"
   },
@@ -734,6 +734,10 @@
   {
     "value": "RW",
     "label": "Rwanda"
+  },
+  {
+    "value": "RE",
+    "label": "Réunion"
   },
   {
     "value": "BL",
@@ -852,10 +856,6 @@
     "label": "Svalbard and Jan Mayen"
   },
   {
-    "value": "SZ",
-    "label": "Swaziland"
-  },
-  {
     "value": "SE",
     "label": "Sweden"
   },
@@ -940,12 +940,12 @@
     "label": "United Kingdom"
   },
   {
-    "value": "US",
-    "label": "United States"
-  },
-  {
     "value": "UM",
     "label": "United States Minor Outlying Islands"
+  },
+  {
+    "value": "US",
+    "label": "United States"
   },
   {
     "value": "UY",
