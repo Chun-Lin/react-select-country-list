@@ -4,7 +4,7 @@ This package take [country-list](https://github.com/fannarsh/country-list) as re
 
 Maps ISO 3166-1-alpha-2 codes to English country names and match react-select options props.
 
-Uses data from http://data.okfn.org/data/country-list
+Uses data from https://www.iso.org/iso-3166-country-codes.html
 
 
 ## Install
@@ -20,36 +20,23 @@ yarn add react-select-country-list
 ## Example
 
 ```js
-import React, { Component } from 'react';
+import React, { useState, useMemo } from 'react'
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 
-class CountrySelector extends Component {
-  constructor(props) {
-    super(props)
+function CountrySelector() {
+  const [value, setValue] = useState('')
+  const options = useMemo(() => countryList().getData(), [])
 
-    this.options = countryList().getData()
-
-    this.state = {
-      options: this.options,
-      value: null,
-    }
+  const changeHandler = value => {
+    setValue(value)
   }
 
-  changeHandler = value => {
-    this.setState({ value })
-  }
-
-  render() {
-    return (
-      <Select
-        options={this.state.options}
-        value={this.state.value}
-        onChange={this.changeHandler}
-      />
-    )
-  }
+  return <Select options={options} value={value} onChange={changeHandler} />
 }
+
+export default CountrySelector
+
 ```
 
 
