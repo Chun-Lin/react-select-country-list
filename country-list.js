@@ -1,6 +1,6 @@
 class CountryList {
   constructor() {
-    this.data = require('./data.json');
+    this.data = require('./data.json')
     this.labelMap = {}
     this.valueMap = {}
 
@@ -80,7 +80,7 @@ class CountryList {
   }
 
   native() {
-    this.nativeData = require('./data-native.json');
+    this.nativeData = require('./data-native.json')
     this.nativeData.forEach(country => {
       this.labelMap[country.label.toLowerCase()] = country.value
       this.valueMap[country.value.toLowerCase()] = country.label
