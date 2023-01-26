@@ -100,6 +100,24 @@ We can even chain `setLabel` and `setEmpty` together to have list with an empty 
 countries.setLabel('VN', 'Vietnam').setEmpty('Select a Country').getLabel('VN') // 'Vietnam'
 ```
 
+### getCountryByLabel(label)
+
+You may want to get the exact country object of specific country by using label, this is the method
+
+### Usage
+```js
+countries.getCountryByLabel('Armenia')  // { label: 'Armenia', value: 'AM' }`
+```
+
+### getCountryByValue(value)
+
+You may want to get the exact country object of specific country by using value, this is the method
+
+### Usage
+```js
+countries.getCountryByValue('AM')  // { label: 'Armenia', value: 'AM' }
+```
+
 ### native()
 
 You may want to display native name of countries, this is the method for you.
@@ -108,6 +126,7 @@ The data source of native names can be found [here](https://annexare.github.io/C
 #### Usage
 ```js
 countries.native().getLabel('TW') // 臺灣
+countries.native().getCountryByValue('AM') // { label: 'Հայաստան', value: 'AM' }
 ```
 
 

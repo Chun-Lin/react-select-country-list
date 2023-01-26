@@ -38,6 +38,25 @@ class CountryList {
     return this.data
   }
 
+  getCountryByValue(value) {
+    const labelTemp = this.valueMap[value.toLowerCase()];
+    if(labelTemp) {
+      return {
+        value : this.labelMap[labelTemp.toLowerCase()],
+        label : labelTemp
+      }
+    }
+    return undefined;
+  }
+
+  getCountryByLabel(label) {
+    const nonNativeCountry = this.data.find(country=>country.label.toLowerCase() === label.toLowerCase());
+    if(nonNativeCountry){
+      return this.getCountryByValue(nonNativeCountry.value)
+    }
+    return undefined;
+  }
+
   setLabel(value, label) {
     this.data.forEach(country => {
       if (country.value === value) {
