@@ -36,5 +36,11 @@ test('get native name of a country', function (t) {
     'return label should be ประเทศไทย'
   )
 
+  t.equal(
+    countries.native().getLabel('BQ'),
+    'Bonaire, Sint Eustatius and Saba',
+    'return label should be Bonaire, Sint Eustatius and Saba'
+  )
+
   t.end()
 })
