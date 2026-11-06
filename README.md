@@ -111,6 +111,31 @@ countries.native().getLabel('TW') // 臺灣
 ```
 
 
+## Releasing (maintainers)
+
+1. Open **Actions → Stage npm release → Run workflow** on GitHub.
+2. Select the **master** branch and choose **patch**, **minor**, or **major**.
+3. Run the workflow. It updates the package and lockfile versions, runs tests and
+   package checks, pushes the version commit and matching `v` tag together, and
+   stages the package with npm in the same workflow.
+4. After the workflow succeeds, approve the version in npm's **Staged Packages**
+   tab with two-factor authentication to make it publicly available.
+
+The npm trusted publisher must allow this repository's `publish.yml` workflow.
+The workflow needs permission to push to `master`; branch protection rules still
+apply. If the push is rejected, no package is staged.
+
+If staging fails after the version commit and tag have been pushed, do not start
+another manual release (that would bump the version again). Fix the staging
+issue, then check out the existing release tag locally and run `npm ci` followed
+by `npm stage publish`. Rerunning a failed manually started job is not supported
+after its version commit and tag have already been pushed.
+
+Manual `v*` tag pushes are also supported. The tag must match `package.json`,
+for example `v2.2.4` for version `2.2.4`. GitHub's default workflow token does not
+trigger another workflow when it pushes a tag, so the manual release stages the
+package directly rather than relying on the tag-triggered run.
+
 ## License
 
 MIT
