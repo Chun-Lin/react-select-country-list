@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Version increment
+        description: Version increment (creates a release PR)
         required: true
         default: patch
         type: choice
@@ -13,29 +13,85 @@ on:
           - minor
           - major
   push:
+    branches:
+      - master
+    paths:
+      - package.json
+      - package-lock.json
     tags:
       - 'v*'
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 concurrency:
   group: npm-release
   cancel-in-progress: false
 
 jobs:
-  stage:
+  prepare:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Require master for manual releases
-        if: github.event_name == 'workflow_dispatch'
         run: |
           if [[ "$GITHUB_REF" != "refs/heads/master" ]]; then
             echo "::error::Select master when starting a release."
             exit 1
           fi
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '26'
+          package-manager-cache: false
+      - name: Prepare version commit
+        id: version
+        env:
+          VERSION_INCREMENT: ${{ inputs.version }}
+        run: |
+          case "$VERSION_INCREMENT" in
+            patch|minor|major) ;;
+            *) echo "::error::Invalid version increment"; exit 1 ;;
+          esac
+          npm version "$VERSION_INCREMENT" --no-git-tag-version --ignore-scripts --lockfile-version=1
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          git switch -c "release/v$VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "Release $VERSION"
+      - name: Create or reuse release pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          BRANCH="release/v$VERSION"
+          PR_URL=$(gh pr list --head "$BRANCH" --base master --state open --json url --jq '.[0].url // empty')
+          if [[ -z "$PR_URL" ]]; then
+            git push origin "HEAD:refs/heads/$BRANCH"
+            PR_URL=$(gh pr create --base master --head "$BRANCH" \
+              --title "Release $VERSION" \
+              --body "Bump the package and lockfile versions to $VERSION. Merge after CI passes; merging automatically stages this version on npm for final approval with 2FA.")
+          fi
+          {
+            echo "## Release PR ready"
+            echo "$PR_URL"
+            echo "Approve workflows on the PR if GitHub requests it, then merge after CI passes. npm staging runs after merge."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  stage:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      id-token: write
+    steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
@@ -44,47 +100,64 @@ jobs:
           node-version: '26'
           registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false
+      - name: Detect release
+        shell: bash
+        id: release
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            if [[ "$GITHUB_REF_NAME" != "v$VERSION" ]]; then
+              echo "::error::Git tag must match package.json version v$VERSION"
+              exit 1
+            fi
+          else
+            PREVIOUS=$(git show "$BEFORE_SHA:package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
+            if [[ "$PREVIOUS" == "$VERSION" ]]; then
+              echo "Version unchanged; no release needed." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          fi
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Install npm CLI with staged publishing support
+        if: steps.release.outputs.publish == 'true'
         run: |
           npm install --global 'npm@^11.15.0'
           npm --version
       - name: Install dependencies
+        if: steps.release.outputs.publish == 'true'
         run: npm ci
-      - name: Prepare version commit and tag
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          VERSION_INCREMENT: ${{ inputs.version }}
-        run: |
-          case "$VERSION_INCREMENT" in
-            patch|minor|major) ;;
-            *) echo "::error::Invalid version increment"; exit 1 ;;
-          esac
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npm version "$VERSION_INCREMENT" --ignore-scripts --lockfile-version=1 -m "Release %s"
-      - name: Verify release tag and package version
-        if: github.event_name == 'push'
-        shell: bash
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          if [[ "$GITHUB_REF_NAME" != "v$VERSION" ]]; then
-            echo "::error::Git tag $GITHUB_REF_NAME does not match package.json version v$VERSION"
-            exit 1
-          fi
       - name: Run tests
+        if: steps.release.outputs.publish == 'true'
         run: npm test
       - name: Check package tarball
+        if: steps.release.outputs.publish == 'true'
         run: npm pack --dry-run
-      - name: Push version commit and tag
-        if: github.event_name == 'workflow_dispatch'
+      - name: Tag merged release
+        if: steps.release.outputs.publish == 'true' && github.ref == 'refs/heads/master'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          git push --atomic origin HEAD:refs/heads/master "refs/tags/v$VERSION"
+          TAG="v$VERSION"
+          if git show-ref --verify --quiet "refs/tags/$TAG"; then
+            if [[ "$(git rev-parse "$TAG^{commit}")" != "$(git rev-parse HEAD)" ]]; then
+              echo "::error::Existing tag $TAG points to another commit."
+              exit 1
+            fi
+          else
+            git tag "$TAG"
+          fi
+          git push origin "refs/tags/$TAG"
       - name: Stage package for npm approval
+        if: steps.release.outputs.publish == 'true'
         run: npm stage publish
       - name: Explain final approval
+        if: steps.release.outputs.publish == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
         run: |
-          VERSION=$(node -p "require('./package.json').version")
           {
             echo "## Version $VERSION staged"
             echo "Open npm's Staged Packages tab and approve react-select-country-list@$VERSION with 2FA to publish it."

@@ -114,27 +114,28 @@ countries.native().getLabel('TW') // 臺灣
 ## Releasing (maintainers)
 
 1. Open **Actions → Stage npm release → Run workflow** on GitHub.
-2. Select the **master** branch and choose **patch**, **minor**, or **major**.
-3. Run the workflow. It updates the package and lockfile versions, runs tests and
-   package checks, pushes the version commit and matching `v` tag together, and
-   stages the package with npm in the same workflow.
-4. After the workflow succeeds, approve the version in npm's **Staged Packages**
-   tab with two-factor authentication to make it publicly available.
+2. Select **master** and choose **patch**, **minor**, or **major**.
+3. The workflow creates a release PR updating the package and lockfile versions.
+   Open the PR linked in the workflow summary. If GitHub requests approval to
+   run its workflows, click **Approve and run workflows**. Merge after CI passes.
+4. Merging a version change into master automatically runs tests and package
+   checks, creates the matching `v` tag, and stages the package on npm.
+5. Approve the version in npm's **Staged Packages** tab with two-factor
+   authentication to make it publicly available.
 
 The npm trusted publisher must allow this repository's `publish.yml` workflow.
-The workflow needs permission to push to `master`; branch protection rules still
-apply. If the push is rejected, no package is staged.
+Actions must be allowed to create pull requests in repository settings. Releases
+use PRs and required checks; the workflow never pushes directly to master.
 
-If staging fails after the version commit and tag have been pushed, do not start
-another manual release (that would bump the version again). Fix the staging
-issue, then check out the existing release tag locally and run `npm ci` followed
-by `npm stage publish`. Rerunning a failed manually started job is not supported
-after its version commit and tag have already been pushed.
+If staging fails after merge, fix the cause and rerun the failed **stage** job.
+Its existing tag is reused only if it points to the same commit. Check npm's
+Staged Packages before retrying if an upload may have succeeded.
 
 Manual `v*` tag pushes are also supported. The tag must match `package.json`,
-for example `v2.2.4` for version `2.2.4`. GitHub's default workflow token does not
-trigger another workflow when it pushes a tag, so the manual release stages the
-package directly rather than relying on the tag-triggered run.
+for example `v2.2.4` for version `2.2.4`. The workflow stages the package in the
+same run that creates the tag; it does not rely on the workflow token's tag push
+triggering another run. Master pushes without a version change do not stage a
+release.
 
 ## License
 
