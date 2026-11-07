@@ -9,12 +9,10 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "csv-parser": "^1.11.0",
-    "lodash.isempty": "^4.4.0",
-    "tap": "^7.1.2"
+    "csv-parser": "^1.11.0"
   },
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "node --test test/*.js"
   },
   "repository": {
     "type": "git",
