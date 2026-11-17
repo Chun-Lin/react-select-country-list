@@ -10,7 +10,7 @@ declare namespace countryList {
     }
 
     interface LabelValueMap {
-        [key: string]: string | undefined;
+        [key: string]: string;
     }
 
     interface Countries {
@@ -20,8 +20,8 @@ declare namespace countryList {
     }
 
     interface CountryList extends Countries {
-        getValue(label: string): string | undefined;
-        getLabel(value: string): string | undefined;
+        getValue(label: string): string;
+        getLabel(value: string): string;
         getValues(): string[];
         getLabels(): string[];
         getLabelList(): LabelValueMap;

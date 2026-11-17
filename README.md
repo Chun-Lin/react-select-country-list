@@ -26,7 +26,7 @@ package is needed. Default imports work with `esModuleInterop` enabled:
 import countryList from 'react-select-country-list'
 
 const options = countryList().getData()
-const label = countryList().getLabel('AU') // string | undefined
+const label = countryList().getLabel('AU')
 ```
 
 For CommonJS TypeScript projects without `esModuleInterop`, use
@@ -34,7 +34,7 @@ For CommonJS TypeScript projects without `esModuleInterop`, use
 
 The declarations are based on the existing
 [DefinitelyTyped definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-select-country-list),
-with lookup results and method chaining matched to this package's behavior.
+preserving their lookup types while adding support for method chaining.
 
 ## Example
 
