@@ -17,6 +17,25 @@ or
 yarn add react-select-country-list
 ```
 
+## TypeScript
+
+TypeScript declarations are included; no separate `@types/react-select-country-list`
+package is needed. Default imports work with `esModuleInterop` enabled:
+
+```ts
+import countryList from 'react-select-country-list'
+
+const options = countryList().getData()
+const label = countryList().getLabel('AU')
+```
+
+For CommonJS TypeScript projects without `esModuleInterop`, use
+`import countryList = require('react-select-country-list')`.
+
+The declarations are based on the existing
+[DefinitelyTyped definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-select-country-list),
+preserving their lookup types while adding support for method chaining.
+
 ## Example
 
 ```js
